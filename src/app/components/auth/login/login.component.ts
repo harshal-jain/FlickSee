@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { DataService } from 'src/app/shared/services/data.service';
 import { Global } from 'src/app/shared/services/global';
+import { MustMatchValidator } from 'src/app/validations/validations.validator';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -41,7 +42,11 @@ export class LoginComponent implements OnInit {
       userTypeId: [1],
       password: ['', Validators.compose([Validators.required, Validators.pattern("(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}")])],
       confirmPassword: ['', Validators.required]
-    });
+    },
+    {
+      validators : MustMatchValidator('password','confirmPassword')
+    }
+    );
   }
 
   get rfControls()
@@ -50,6 +55,8 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+
+    
     if (this.loginForm.get('userName').value == "") {
       this._toastr.error("User Name is required !!", "Login");
     }
@@ -60,6 +67,7 @@ export class LoginComponent implements OnInit {
     else {
       if (this.loginForm.valid) {
         this._dataService.post(Global.BASE_API_PATH + "UserMaster/Login/", this.loginForm.value).subscribe(res => {
+          
           if (res.isSuccess) {
             this._authService.login(res.data);
             this.strMsg = this._authService.getMessage();

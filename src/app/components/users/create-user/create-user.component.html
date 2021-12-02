@@ -1,0 +1,137 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card tab2-card">
+                <div class="card-header">
+                    <h5>Add User</h5>
+                </div>
+                <div class="card-body tab2-card">
+                    <!--registration form start -->
+                    <form [formGroup]="addForm" (ngSubmit)="register(addForm)">
+
+                        <!-- First Name Start -->
+                        <div class="form-group row">
+                            <label for="validationCustom0" class="col-xl-3 col-md-4"><span>*</span>First
+                                Name</label>
+                            <input class="form-control col-xl-8 col-md-7" type="text" formControlName="firstName"
+                                [ngClass]="{'is-invalid' : submitted && rfControls.firstName.errors }">
+                            <div class="col-xl-3 col-md-4"></div>
+                            <div class="col-xl-3 col-md-4 invalid-feedback"
+                                *ngIf="submitted && rfControls.firstName.errors">
+                                <div *ngIf="rfControls.firstName.errors.required">First Name is
+                                    required</div>
+                                <div *ngIf="rfControls.firstName.errors.minlength">First Name
+                                    minimum length should be 3 char long</div>
+                                <div *ngIf="rfControls.firstName.errors.maxlength">First Name
+                                    maximum length is 20 char</div>
+                            </div>
+                        </div>
+                        <!-- First Name End -->
+
+                        <!-- Last Name Start -->
+                        <div class="form-group row">
+                            <label for="validationCustom0" class="col-xl-3 col-md-4"><span>*</span>Last
+                                Name</label>
+                            <input class="form-control col-xl-8 col-md-7" type="text" formControlName="lastName"
+                                [ngClass]="{'is-invalid' : submitted && rfControls.lastName.errors }">
+                            <div class="col-xl-3 col-md-4"></div>
+                            <div class="col-xl-3 col-md-4 invalid-feedback"
+                                *ngIf="submitted && rfControls.lastName.errors">
+                                <div *ngIf="rfControls.lastName.errors.required">Last Name is
+                                    required</div>
+                                <div *ngIf="rfControls.lastName.errors.minlength">Last Name minimum
+                                    length should be 3 char long</div>
+                                <div *ngIf="rfControls.lastName.errors.maxlength">Last Name maximum
+                                    length is 20 char long</div>
+                            </div>
+                        </div>
+                        <!-- Last Name End -->
+
+                        <!-- Email Start -->
+                        <div class="form-group row">
+                            <label for="validationCustom0" class="col-xl-3 col-md-4"><span>*</span>Email
+                            </label>
+                            <input class="form-control col-xl-8 col-md-7" type="text" formControlName="email"
+                                [ngClass]="{'is-invalid' : submitted && rfControls.email.errors }">
+                            <div class="col-xl-3 col-md-4"></div>
+                            <div class="col-xl-3 col-md-4 invalid-feedback"
+                                *ngIf="submitted && rfControls.email.errors">
+                                <div *ngIf="rfControls.email.errors.required">Email Id is required
+                                </div>
+                                <div *ngIf="rfControls.email.errors.pattern">Email must be a valid
+                                    address</div>
+                            </div>
+                        </div>
+                        <!-- Email End -->
+
+                        <!-- User Type Dropdown -->
+                        <div class="form-group row">
+                            <label for="validationCustom0" class="col-xl-3 col-md-4"><span>*</span>User Type
+                            </label>
+
+                            <select class="form-control col-xl-8 col-md-7" formControlName="userTypeId"
+                                [ngClass]="{'is-invalid' : submitted && rfControls.userTypeId.errors }">
+                                <option value="">-- User Types--</option>
+                                <option *ngFor="let type of objUserTypes" [value]="type.id">{{type.name}}</option>
+
+                            </select>
+
+                            <div class="col-xl-3 col-md-4"></div>
+                            <div class="col-xl-3 col-md-4 invalid-feedback"
+                                *ngIf="submitted && rfControls.userTypeId.errors">
+                                <div *ngIf="rfControls.userTypeId.errors.required">userTypeId Id is required
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- User Type Dropdown -->
+
+                        <!-- Password Start -->
+                        <div class="form-group row">
+                            <label for="validationCustom0" class="col-xl-3 col-md-4"><span>*</span>Password
+                            </label>
+                            <input class="form-control col-xl-8 col-md-7" type="password" formControlName="password"
+                                [ngClass]="{'is-invalid' : submitted && rfControls.password.errors }">
+                            <div class="col-xl-3 col-md-4"></div>
+                            <div class="col-xl-3 col-md-4 invalid-feedback"
+                                *ngIf="submitted && rfControls.password.errors">
+                                <div *ngIf="rfControls.password.errors.required">Password is required
+                                </div>
+                                <div *ngIf="rfControls.password.errors.pattern">Password must be
+                                    atleast 8 char long and contains lowercase letters, uppercase letters, numbers and
+                                    speacial chars
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Password End -->
+
+                        <!-- Confirm Password Start -->
+                        <div class="form-group row">
+                            <label for="validationCustom0" class="col-xl-3 col-md-4"><span>*</span>Conirm Password
+                            </label>
+                            <input class="form-control col-xl-8 col-md-7" type="password"
+                                formControlName="confirmPassword"
+                                [ngClass]="{'is-invalid' : submitted && rfControls.confirmPassword.errors }">
+                            <div class="col-xl-3 col-md-4"></div>
+                            <div class="col-xl-3 col-md-4 invalid-feedback"
+                                *ngIf="submitted && rfControls.confirmPassword.errors">
+                                <div *ngIf="rfControls.confirmPassword.errors.required">Confirm
+                                    Password is required
+                                </div>
+                                <div *ngIf="rfControls.confirmPassword.errors.mustMatch">Confirm
+                                    Password must match with password
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Confirm Password End -->
+
+                        <div class="form-button">
+                            <button class="btn btn-primary" type="submit">{{buttenText}}</button>
+                        </div>
+                    </form>
+                    <!--registration form end -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

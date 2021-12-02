@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -19,6 +19,17 @@ export class DataService {
 
     const body = JSON.stringify(model); // it will be now in json format
     return this._httpClient.post(url, body)
+
+  }
+
+  // For image save
+  postImage(url: string, model: any): Observable<any> {
+
+    let httpHeaders = new HttpHeaders()
+    .set('isfile','');
+    return this._httpClient.post(url, model,{
+      headers : httpHeaders
+    });
 
   }
 

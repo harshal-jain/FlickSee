@@ -13,7 +13,7 @@ export class RequestInterceptors implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    
+
     let request: any;
     let currentUser: any;
     let isLoggedIn: boolean;
@@ -29,12 +29,33 @@ export class RequestInterceptors implements HttpInterceptor {
 
           currentUser = res;
 
-          request = req.clone({
-            setHeaders: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${currentUser.token}`
-            }
-          });
+          if (req.headers.has('isfile')) {
+            request = req.clone({ headers: req.headers.delete('isfile') });
+            // For image
+            request = req.clone({
+              setHeaders: {
+
+                'Authorization': `Bearer ${currentUser.token}`
+              }
+            });
+
+          }
+
+          else {
+
+
+            // For Normal Data
+            request = req.clone({
+              setHeaders: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${currentUser.token}`
+              }
+            });
+
+          }
+
+
+
 
         })
 

@@ -110,7 +110,7 @@ export class CreateUserComponent implements OnInit {
 
           }
           else {
-            this._toastr.error(res.error[0], "Register");
+            this._toastr.error(res.error[0], "Add User");
           }
         });
         break;
@@ -134,7 +134,7 @@ export class CreateUserComponent implements OnInit {
             }
           }
           else {
-            this._toastr.error(res.error[0], "Register");
+            this._toastr.error(res.error[0], "Add User");
           }
         });
     }

@@ -5,4 +5,6 @@ export const contentRoutes: Routes = [
     { path : "masters", loadChildren: () => import('../../components/masters/masters.module').then(m => m.MastersModule)},
     { path : "users", loadChildren: () => import('../../components/users/users.module').then(m => m.UsersModule)},
     { path : "settings", loadChildren: () => import('../../components/settings/settings.module').then(m => m.SettingsModule)},
+    { path : "products", loadChildren: () => import('../../components/products/products.module').then(m => m.ProductsModule)},
+
 ];

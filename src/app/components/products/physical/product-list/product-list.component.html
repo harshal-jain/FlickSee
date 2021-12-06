@@ -1,0 +1,52 @@
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+            <h5>Product List</h5>
+        </div>
+        <div class="card-body">
+            <div class="btn-popup pull-right">
+                <a class="btn btn-primary" routerLink="/products/physical/add-product">Add Product</a>
+            </div>
+            <div id="batchDelete" class="category-table custom-datatable transcation-datatable userimage">
+                <div class="table-responsive">
+                    <ngx-datatable class="bootstrap" [rows]="objRows" [columnMode]="'force'" [headerHeight]="50"
+                        [footerHeight]="50" [rowHeight]="'auto'" [limit]="5">
+                        <ngx-datatable-column name="Name"></ngx-datatable-column>
+                        <ngx-datatable-column name="Title"></ngx-datatable-column>
+                        <ngx-datatable-column name="Code"></ngx-datatable-column>
+                        <ngx-datatable-column name="Price"></ngx-datatable-column>
+                        <ngx-datatable-column name="Sale Price"></ngx-datatable-column>
+                        <ngx-datatable-column name="Created Date" prop="createdOn">
+                            <ng-template let-value="value" ngx-datatable-cell-template>
+                                {{value}}
+                            </ng-template>
+                        </ngx-datatable-column>
+
+
+                        <ngx-datatable-column name="Actions">
+                            <ng-template let-row="row" ngx-datatable-cell-template>
+                                <button type="button" (click)="Edit(row.id)"><i class="fa fa-edit"></i></button>
+                                <button type="button" (click)="Delete(row.id)"><i class="fa fa-trash"></i></button>
+
+                            </ng-template>
+                        </ngx-datatable-column>
+
+                    </ngx-datatable>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- // createdBy: 1
+// createdOn: "02/12/2021"
+// email: "lokesh.sharmas489@gmail.com"
+// firstName: "LOKESH"
+// id: 280
+// lastName: "VISHWAKARMA"
+// modifiedBy: null
+// modifiedOn: null
+// status: "Active"
+// userType: "Admin"
+// userTypeId: 1 -->

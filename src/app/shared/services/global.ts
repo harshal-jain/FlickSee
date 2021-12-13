@@ -8,7 +8,7 @@ export class Global {
 
     // For Live Image Path 
     public static BASE_IMAGES_PATH = "http://sahosoftweb.com/images/"; // E-Commerce - For saving Product images
-    public static BASE_USERS_IMAGES_PATH = "http://sahosoftweb.com/users/"; // E-Commerce - For saving User images
+    public static BASE_USERS_IMAGES_PATH = "http://sahosoftweb.com/users/"; // E-Commerce - For saving User images // jab hum regisration vagarah krenge toh hum apna bhi toh image load krenge
 
     // For Local Image Path 
     // public static BASE_IMAGES_PATH = "http://localhost:15000/images/"; // E-Commerce - For saving Product images

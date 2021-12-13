@@ -31,6 +31,7 @@ export class SidebarComponent implements OnInit {
 
   }
 
+  // jis menu pe click krenge voh menu active ho jaaega
   toggleNavActive(item: Menu) {
     item.active = !item.active;
   }

@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
       confirmPassword: ['', Validators.required]
     },
     {
-      validators : MustMatchValidator('password','confirmPassword')
+      validators : MustMatchValidator('password','confirmPassword') // yeh confirm password me error set kr degai.e mustMatch
     }
     );
   }
@@ -54,6 +54,7 @@ export class LoginComponent implements OnInit {
     return this.registerForm.controls;
   }
 
+  // this is for twhen we click on login button
   login() {
 
     
@@ -65,7 +66,7 @@ export class LoginComponent implements OnInit {
 
     }
     else {
-      if (this.loginForm.valid) {
+      if (this.loginForm.valid) {                                         // object(username & pass)
         this._dataService.post(Global.BASE_API_PATH + "UserMaster/Login/", this.loginForm.value).subscribe(res => {
           
           if (res.isSuccess) {
@@ -88,6 +89,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  // this is for twhen we click on registration button
 
   register(formData: any) {
     this.submitted = true;

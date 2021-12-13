@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     let userDetails = JSON.parse(localStorage.getItem("userDetails"));
-    
+
     this.userImage = (userDetails.imagePath == "" || userDetails.imagePath == null) ? "/assets/images/user.png"
       : Global.BASE_USERS_IMAGES_PATH + userDetails.imagePath;
   }
@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
 
   collaspeSidebar() {
 
-    this._navService.collaspeSidebar = !this._navService.collaspeSidebar;
+    this._navService.collaspeSidebar = !this._navService.collaspeSidebar; // isko humne isliye likha kyuki hum header ke icon pe click krte hai toh sidebar bhi hide/show ho rha hai
   }
 
 }

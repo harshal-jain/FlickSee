@@ -8,7 +8,7 @@ export class TextFieldValidator {
             const regex = /^[0-9a-zA-Z ]+$/;
             if (regex.test(fc.value)) {
 
-                return null;
+                return null; // condition - fullfill. toh hame koi msg dikhane ki jarurat nhi hai.isliye null return kr diya
 
             }
             else {
@@ -121,10 +121,12 @@ export class NoWhiteSpaceValidator {
 
 //Validations : To check 2 fields match
 export function MustMatchValidator(controlName: string, matchingControlName: string) {
+    // yha pe 1 control nhi hai ek se jyda hai isliye form control nhi liya form group liya
     return (fromGroup: FormGroup) => {
         const control = fromGroup.controls[controlName]; // P
         const matchingControl = fromGroup.controls[matchingControlName]; // CP
 
+        // agar cp me error hai but must match vaala error nhi hai toh hum yahi se return kra denge
         if (matchingControl.errors && !matchingControl.errors.mustMatch) {
             return;
         }

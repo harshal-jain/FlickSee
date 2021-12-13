@@ -51,12 +51,12 @@ export class DataService {
 
 
   // // Getting data from api
-  // get(url: string): Observable<any> {
+  // get(url: string): Observable<any> { // url me api ka path aaega
   //   return this._httpClient.get(url);
   // }
 
   // // For data save
-  // post(url: string, model: any): Observable<any> {
+  // post(url: string, model: any): Observable<any> { // url me api ka path and model me joh hume bhejna hai
 
   //   // api pe light body code bjenge
   //   const body = JSON.stringify(model); // it will be now in json format

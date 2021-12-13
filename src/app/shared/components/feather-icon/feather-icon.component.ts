@@ -16,6 +16,7 @@ export class FeatherIconComponent implements OnInit, AfterViewInit {
 
   }
 
+  // Yeh child component hai isliye hume isko ngAfterViewInit pe lena hoga
   ngAfterViewInit() {
     feather.replace();
   }

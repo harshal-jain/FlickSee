@@ -18,7 +18,7 @@ export class RequestInterceptors implements HttpInterceptor {
     let currentUser: any;
     let isLoggedIn: boolean;
 
-
+    // token hame login krne ke baad need hoti hai toh
     this._authService.IsLoggedIn.subscribe(res => {
 
       isLoggedIn = res;
@@ -27,7 +27,7 @@ export class RequestInterceptors implements HttpInterceptor {
 
         this._authService.currentUser.subscribe(res => {
 
-          currentUser = res;
+          currentUser = res; // res me saari details aa jaaegi uske saath ek token bhi hoga
 
           if (req.headers.has('isfile')) {
             request = req.clone({ headers: req.headers.delete('isfile') });
@@ -44,7 +44,7 @@ export class RequestInterceptors implements HttpInterceptor {
           else {
 
 
-            // For Normal Data
+            // For Normal Data : 
             request = req.clone({
               setHeaders: {
                 'Content-Type': 'application/json',
@@ -63,8 +63,8 @@ export class RequestInterceptors implements HttpInterceptor {
       }
       else {
 
-
-        request = req.clone({
+        // yha pe token pass krne ki need nhi hai. isliye
+        request = req.clone({ // yeh humne copy bana li
           setHeaders: {
             'Content-Type': 'application/json'
           }
@@ -74,6 +74,7 @@ export class RequestInterceptors implements HttpInterceptor {
 
     })
 
+    // request me sab modify hoke aa gya. ab isko return kr denge
     return next.handle(request);
 
   }

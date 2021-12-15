@@ -14,13 +14,14 @@ import { MustMatchValidator } from 'src/app/validations/validations.validator';
 })
 export class CreateUserComponent implements OnInit {
 
-  userId: number = 0;
+  userId: number = 0; // joh user id list-user se aaari hai edit pe click krne pe usko hum isme receive krenge
   addForm: FormGroup;
   submitted: boolean = false;
-  dbops: DBOperation;
-  buttenText: string;
-  objUserTypes: [];
+  dbops: DBOperation; // kabhi submit krna hai khabhi update kra hai
+  buttenText: string; // kabhi submit krna hai khabhi update kra hai
+  objUserTypes: []; // api se data consume krke isme rakhenge
 
+  // Activated route isliye liya hai kyuki hume hume userId joh list-user peedit pe click ckre aari hai usko hum isme le lenge
   constructor(private route: ActivatedRoute, private _fb: FormBuilder, private _toastr: ToastrService, private _dataService: DataService) {
 
     this.route.queryParams.subscribe(params => {
@@ -32,6 +33,7 @@ export class CreateUserComponent implements OnInit {
     this.setFormState();
     this.getUserTypes();
 
+    // yeh jab hum list-user pe edit pe clikc krenge toh create-user pe data show hona cheye uske liye
     if (this.userId && this.userId != null && this.userId > 0) {
       this.getUserById();
       this.buttenText = "Update";
@@ -60,6 +62,7 @@ export class CreateUserComponent implements OnInit {
     return this.addForm.controls;
   }
 
+  // yha pe saare user types aa jaaenge - jyse ki admin, customer aur joh bhi hai
   getUserTypes() {
     this._dataService.get(Global.BASE_API_PATH + "UserType/GetAll").subscribe(res => {
       if (res.isSuccess) {
@@ -73,11 +76,11 @@ export class CreateUserComponent implements OnInit {
     })
   }
 
+  // jab hum list-user pe uster type ke edit pe click krenge toh konsa user hai uski id aa jaaegi
   getUserById() {
     this._dataService.get(Global.BASE_API_PATH + "UserMaster/GetbyId/" + this.userId).subscribe(res => {
       if (res.isSuccess) {
-
-        this.addForm.patchValue(res.data);
+        this.addForm.patchValue(res.data); // res.data me joh joh data aaya hua hoga voh addForm me fill kr dega
       }
       else {
         this._toastr.error("res.errors[0]", "User Master");
@@ -96,9 +99,9 @@ export class CreateUserComponent implements OnInit {
 
         this._dataService.post(Global.BASE_API_PATH + "UserMaster/Save", formData.value).subscribe(res => {
           if (res.isSuccess) {
-            if (res.data == -1) {
+            if (res.data == -1) { // -1 custom api se aara hai
               this._toastr.error("Email id already exists !!", "Add User")
-            } else if (res.data == -2) {
+            } else if (res.data == -2) { // -2 custom api se aara hai
               this._toastr.error("User does not exists !!", "Add User")
             }
             else {

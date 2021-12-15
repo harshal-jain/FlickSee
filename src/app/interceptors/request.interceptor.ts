@@ -29,8 +29,8 @@ export class RequestInterceptors implements HttpInterceptor {
 
           currentUser = res; // res me saari details aa jaaegi uske saath ek token bhi hoga
 
-          if (req.headers.has('isfile')) {
-            request = req.clone({ headers: req.headers.delete('isfile') });
+          if (req.headers.has('isfile')) { // yeh isfile data.service me postImage se aaya hai // isse yeh pta lag rha hai ki kya headersme yeh - isFile kacolumn exist krta hai kya 
+            request = req.clone({ headers: req.headers.delete('isfile') }); // isko hume api pe toh bhejna nhi hai toh hum isfile flag ko delete bhi kr denge
             // For image
             request = req.clone({
               setHeaders: {
@@ -47,7 +47,7 @@ export class RequestInterceptors implements HttpInterceptor {
             // For Normal Data : 
             request = req.clone({
               setHeaders: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json', // isse hum bta rhe hai ki hum data JSON format me bhej rhe hai
                 'Authorization': `Bearer ${currentUser.token}`
               }
             });

@@ -35,12 +35,14 @@ export class ListUserComponent implements OnInit {
     })
   }
 
+  
   Edit(_id: number) {
 
-    this.navRoute.navigate(["/users/add-user"],{queryParams:{userId : _id}})
+    this.navRoute.navigate(["/users/add-user"],{queryParams:{userId : _id}}) // userId ke name se uss page pe chala jaaega
 
   }
 
+  // Delete code as it is purana
   Delete(_id: number) {
 
     

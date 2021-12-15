@@ -19,20 +19,21 @@ export class ProfileComponent implements OnInit {
   lastName = "";
   userDetails: any;
 
-  @ViewChild('file') elfile: ElementRef;
-  addedImagePath: string = "assets/images/noimage.png";
-  fileToUpload: any;
+  @ViewChild('file') elfile: ElementRef; // for image
+  addedImagePath: string = "assets/images/noimage.png"; // for image
+  fileToUpload: any; //for image
 
   constructor(private _toastr: ToastrService, private _dataService: DataService, private router: Router) { }
 
   ngOnInit(): void {
-    this.userDetails = JSON.parse(localStorage.getItem("userDetails"));
+    this.userDetails = JSON.parse(localStorage.getItem("userDetails")); // auth.service me hamne rakha hua hai.
 
     this.firstName = this.userDetails.firstName;
     this.lastName = this.userDetails.lastName;
     this.emailId = this.userDetails.email;
     this.fullName = `${this.firstName} ${this.lastName}`;
 
+    // agar database me image hai toh voh aana cheye varna user.png aa jaae
     this.imagePath = (this.userDetails.imagePath == "" || this.userDetails.imagePath == null) ? "/assets/images/user.png"
       : Global.BASE_USERS_IMAGES_PATH + this.userDetails.imagePath;
   }

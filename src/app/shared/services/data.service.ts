@@ -26,7 +26,7 @@ export class DataService {
   postImage(url: string, model: any): Observable<any> {
 
     let httpHeaders = new HttpHeaders()
-    .set('isfile','');
+    .set('isfile',''); // isfile humne ek flag banaya khudse // yeh ab interceptor pe jaaega 
     return this._httpClient.post(url, model,{
       headers : httpHeaders
     });

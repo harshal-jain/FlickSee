@@ -20,10 +20,10 @@ export class BrandlogoComponent implements OnInit, OnDestroy {
   objRow: any;
   dbops: DBOperation;
   @ViewChild('nav') elnav: any;
-  @ViewChild('file') elfile: ElementRef;
+  @ViewChild('file') elfile: ElementRef; // yeh html component se aa rha hai | yeh isliye liya hai ki agar koi txt file upload krde toh uspe kya operation kre upload ke time pe
 
   addedImagePath: string = "assets/images/noimage.png";
-  fileToUpload: any
+  fileToUpload: any // isme hamari voh image aaegi joh hum choose file pe click krne ke baad ok krenge
 
   formErrors = {
     name: ''
@@ -76,14 +76,14 @@ export class BrandlogoComponent implements OnInit, OnDestroy {
     }
 
     let type = files[0].type;
-    if (type.match(/image\/*/) == null) // this means any image extention
+    if (type.match(/image\/*/) == null) // this means any image extention | agar humne valid image nhi daali kuch aur daal diya jyse ki koi txt file
     {
-      this.elfile.nativeElement.value = "";
+      this.elfile.nativeElement.value = ""; // file joh upload hui uska name blank kr denge
       this._toaster.error("Please upload valid image !!", "Brand Logo")
     }
 
     this.fileToUpload = files[0];
-    // read image
+    // read image | yha hum image ko read krke yahi dikha de iske liye
     let reader = new FileReader();
     reader.readAsDataURL(files[0]);
     reader.onload = () => {
@@ -137,18 +137,20 @@ export class BrandlogoComponent implements OnInit, OnDestroy {
 
   Submit() {
 
+    // agar hum create krne jaa rhe hai && humne choose file pe click krke koi image e add nhi kri
     if (this.dbops === DBOperation.create && !this.fileToUpload) {
 
       this._toaster.error("Please upload image !!", "Brand Logo");
       return;
 
     }
-
-    const formData = new FormData();
-    formData.append("Id", this.addForm.controls['id'].value);
-    formData.append("Name", this.addForm.controls['name'].value);
+  
+    //yeh isliye kra hai ki agar hume koi file save krani ho - kosi bhi
+    const formData = new FormData(); //khud ka form data bana rhe hai
+    formData.append("Id", this.addForm.controls['id'].value); // yha se id aa gyi
+    formData.append("Name", this.addForm.controls['name'].value); // yha se name aa gyi
     if (this.fileToUpload) {
-      formData.append("Image", this.fileToUpload, this.fileToUpload.name);
+      formData.append("Image", this.fileToUpload, this.fileToUpload.name); // yha se image && image name aa gyi
     }
 
 

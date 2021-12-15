@@ -9,6 +9,7 @@ import { UsertypeComponent } from './usertype/usertype.component';
 
 const routes: Routes = [
   {
+    // yha pe children isliye apply kra ki agar guard apply kre toh sabpe same guard e apply ho jaae
     path: '', children: [
       { path: 'brandlogo', component: BrandlogoComponent },
       { path: 'category', component: CategoryComponent },

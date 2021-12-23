@@ -23,6 +23,6 @@ import { LayoutComponent } from './layout/layout.component';
         RouterModule
     ],
     providers: [],
-    exports:[LayoutComponent]
+    exports:[FeatherIconComponent]
 })
 export class SharedModule { }

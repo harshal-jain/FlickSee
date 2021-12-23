@@ -18,12 +18,12 @@ export class AddProductComponent implements OnInit {
   submitted: boolean = false;
   dbops: DBOperation;
   buttonText: string;
-  objSizes: [];
-  objTags: [];
-  objColors: [];
-  objCategories: [];
-  bigImage = "assets/images/1.jpg";
-  url = [
+  objSizes: []; // For Drop Down
+  objTags: []; // For Drop Down
+  objColors: []; // For Drop Down
+  objCategories: []; // For Drop Down
+  bigImage = "assets/images/1.jpg"; // by default image
+  url = [ // this is for by default images comes right of big image
     { img: "assets/images/noimage.png" },
     { img: "assets/images/noimage.png" },
     { img: "assets/images/noimage.png" },
@@ -32,7 +32,7 @@ export class AddProductComponent implements OnInit {
   ];
 
   @ViewChild('elfile') elfile: ElementRef;
-  fileToUpload = [];
+  fileToUpload = []; // multiple image hold krni hai
   counter: number = 0;
 
   formErrors = {
@@ -113,10 +113,10 @@ export class AddProductComponent implements OnInit {
   }
   ngOnInit(): void {
     this.setFormState();
-    this.getSizes();
-    this.getCategories();
-    this.getColors();
-    this.getTags();
+    this.getSizes(); // DropDown Data
+    this.getCategories(); // DropDown Data
+    this.getColors(); // DropDown Data
+    this.getTags(); // DropDown Data
     if (this.productId && this.productId != null && this.productId > 0) {
       this.getProductById();
       this.buttonText = "Update";
@@ -174,9 +174,9 @@ export class AddProductComponent implements OnInit {
       colorId: ['', Validators.required],
       tagId: ['', Validators.required],
       categoryId: ['', Validators.required],
-      quantity: [''],
-      isSale: [false],
-      isNew: [false],
+      quantity: [''], // counter
+      isSale: [false], // checkbox
+      isNew: [false], // checkbox
       shortDetails: [''],
       description: ['']
     });
@@ -211,11 +211,13 @@ export class AddProductComponent implements OnInit {
     }
   }
 
+  // For counetr
   increment() {
     this.counter = this.counter + 1;
     this.addForm.controls['quantity'].setValue(this.counter);
   }
 
+  // For counetr
   decrement() {
     if (this.counter > 1) {
       this.counter = this.counter - 1;
@@ -223,6 +225,7 @@ export class AddProductComponent implements OnInit {
     }
   }
 
+  // this is for small images upload
   upload(files: any, i: number) {
 
     if (files.length === 0) {
@@ -235,17 +238,19 @@ export class AddProductComponent implements OnInit {
       this._toastr.error("Please upload valid image !!", "Add Product");
     }
 
+    // jis index ke liye image upload krenge usi index pe image upload ho jaaega
     this.fileToUpload[i] = files[0];
 
     //read Image
     let reader = new FileReader();
     reader.readAsDataURL(files[0]);
     reader.onload = () => {
-      this.url[i].img = reader.result.toString();
-      this.bigImage = reader.result.toString();
+      this.url[i].img = reader.result.toString(); // hume ab yeh image url me rakhna hoga
+      this.bigImage = reader.result.toString(); // usme joh us time pe upload krenge voh image dikhega
     };
   }
 
+  // Drop Down - Size
   getSizes() {
     this._dataService.get(Global.BASE_API_PATH + "SizeMaster/GetAll").subscribe(res => {
       if (res.isSuccess) {
@@ -255,6 +260,8 @@ export class AddProductComponent implements OnInit {
       }
     });
   }
+
+  // Drop Down - Tags
   getTags() {
     this._dataService.get(Global.BASE_API_PATH + "TagMaster/GetAll").subscribe(res => {
       if (res.isSuccess) {
@@ -264,6 +271,8 @@ export class AddProductComponent implements OnInit {
       }
     });
   }
+
+  // Drop Down - colors
   getColors() {
     this._dataService.get(Global.BASE_API_PATH + "ColorMaster/GetAll").subscribe(res => {
       if (res.isSuccess) {
@@ -273,6 +282,8 @@ export class AddProductComponent implements OnInit {
       }
     });
   }
+
+  // Drop Down - Categories
   getCategories() {
     this._dataService.get(Global.BASE_API_PATH + "Category/GetAll").subscribe(res => {
       if (res.isSuccess) {
@@ -282,6 +293,8 @@ export class AddProductComponent implements OnInit {
       }
     });
   }
+
+  // jab hum product-list ke edit pe click krenge toh konsa product hai uski id aa jaaegi
   getProductById() {
     this._dataService.get(Global.BASE_API_PATH + "ProductMaster/GetbyId/" + this.productId).subscribe(res => {
       if (res.isSuccess) {
@@ -289,7 +302,7 @@ export class AddProductComponent implements OnInit {
         this.addForm.controls['isSale'].setValue(res.data.isSale === 1 ? true : false);
         this.addForm.controls['isNew'].setValue(res.data.isNew === 1 ? true : false);
 
-        this.counter = res.data.quantity;
+        this.counter = res.data.quantity; // edit ke time pe joh bhi quantity ho voh aa jaae
 
         this._dataService.get(Global.BASE_API_PATH + "ProductMaster/GetProductPicturebyId/" + this.productId).subscribe(res => {
           if (res.isSuccess) {
@@ -338,6 +351,7 @@ export class AddProductComponent implements OnInit {
     formData.append("ShortDetails", this.addForm.controls['shortDetails'].value);
     formData.append("Description", this.addForm.controls['description'].value);
 
+    // This is for - we are uploading 5 images
     if (this.fileToUpload) {
       for (let i = 0; i < this.fileToUpload.length; i++) {
         let ToUpload = this.fileToUpload[i];

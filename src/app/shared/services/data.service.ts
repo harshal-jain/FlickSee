@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Global } from './global';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class DataService {
   get(url: string): Observable<any> {
     return this._httpClient.get(url);
   }
+  
 
   // For data save
   post(url: string, model: any): Observable<any> {
